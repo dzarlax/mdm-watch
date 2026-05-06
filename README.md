@@ -26,7 +26,7 @@ Opens `http://localhost:8765` — three sections:
 
 Each card is expandable — click to see payload bundle IDs, raw policy data, UUIDs, and install date.
 
-![profiles collapsed](docs/collapsed.png)
+![MDM Watch UI](docs/preview.png)
 
 ## Install
 
