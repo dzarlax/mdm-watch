@@ -4,9 +4,19 @@ set -e
 
 APPLE_ID="${APPLE_ID:?Set APPLE_ID=your@apple.id}"
 APP_PASSWORD="${APP_PASSWORD:?Set APP_PASSWORD=app-specific-password}"
-TEAM_ID="EMVJLWPLVL"
-SIGN_ID="Developer ID Application: Alexey Panfilov ($TEAM_ID)"
 VERSION="${1:-$(date +%Y.%m.%d)}"
+
+SIGN_ID=$(security find-identity -v -p codesigning 2>/dev/null \
+    | grep "Developer ID Application" \
+    | head -1 \
+    | awk -F'"' '{print $2}')
+TEAM_ID=$(echo "$SIGN_ID" | grep -o '([A-Z0-9]*)' | tr -d '()')
+
+if [ -z "$SIGN_ID" ]; then
+    echo "Error: no Developer ID Application certificate found in Keychain."
+    exit 1
+fi
+echo "▸ Signing identity: $SIGN_ID"
 DIST="/tmp/mdm-watch-dist"
 ZIP="/tmp/mdm-watch-${VERSION}.zip"
 
