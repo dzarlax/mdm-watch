@@ -30,6 +30,23 @@ Each card is expandable — click to see payload bundle IDs, raw policy data, UU
 
 ## Install
 
+### Option A — Download release (recommended)
+
+Go to [Releases](https://github.com/dzarlax/mdm-watch/releases/latest), download the zip, unzip and run:
+
+```bash
+cd mdm-watch-dist
+./install.sh
+```
+
+Grant notification permission on first run:
+
+```bash
+mdm-notifier -title "MDM Watch" -message "Installed" -open "http://localhost:8765"
+```
+
+### Option B — Build from source
+
 ### 1. Build and install the daemon
 
 ```bash
