@@ -16,10 +16,10 @@
     <true/>
 
     <key>StandardOutPath</key>
-    <string>/Users/dzarlax/.local/state/mdm-watch/stdout.log</string>
+    <string>__HOME__/.local/state/mdm-watch/stdout.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/dzarlax/.local/state/mdm-watch/stderr.log</string>
+    <string>__HOME__/.local/state/mdm-watch/stderr.log</string>
 
 </dict>
 </plist>

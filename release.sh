@@ -77,7 +77,7 @@ EOF
 sudo chmod +x /usr/local/bin/mdm-notifier
 
 echo "▸ Installing LaunchAgent..."
-cp "$DIR/com.dzarlax.mdm-watch.plist" ~/Library/LaunchAgents/
+sed "s|__HOME__|$HOME|g" "$DIR/com.dzarlax.mdm-watch.plist" > ~/Library/LaunchAgents/com.dzarlax.mdm-watch.plist
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.dzarlax.mdm-watch.plist 2>/dev/null || \
 launchctl kickstart -k gui/$(id -u)/com.dzarlax.mdm-watch
 
