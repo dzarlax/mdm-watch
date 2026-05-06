@@ -121,6 +121,6 @@ The matched keywords are shown inside the expanded card.
 
 `mdm-watch` tries notification senders in this order:
 
-1. **`mdm-notifier`** — native Swift helper, clickable, opens browser on tap
-2. **`terminal-notifier`** — clickable if it works on your macOS version
+1. **`mdm-notifier`** — native Swift helper, clickable, opens browser on tap *(recommended)*
+2. **`terminal-notifier`** — clickable, but known to not display banners on macOS 15+
 3. **`osascript`** — always works, not clickable
