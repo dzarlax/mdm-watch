@@ -186,17 +186,27 @@ const uiURL = "http://localhost:8765"
 // (opens uiURL) via terminal-notifier if available; falls back to osascript.
 func notify(title, message string, clickable bool) {
 	if clickable {
+		// Prefer our native Swift helper (proper UNUserNotificationCenter)
+		if mn, err := exec.LookPath("mdm-notifier"); err == nil {
+			exec.Command(mn,
+				"-title", title,
+				"-message", message,
+				"-open", uiURL,
+			).Run()
+			return
+		}
+		// Fallback: terminal-notifier
 		if tn, err := exec.LookPath("terminal-notifier"); err == nil {
 			exec.Command(tn,
 				"-title", title,
 				"-message", message,
 				"-sound", "Basso",
 				"-open", uiURL,
-				"-group", "mdm-watch",
 			).Run()
 			return
 		}
 	}
+	// Last resort: osascript (not clickable)
 	script := fmt.Sprintf(`display notification %q with title %q sound name "Basso"`, message, title)
 	if err := exec.Command("osascript", "-e", script).Run(); err != nil {
 		log.Printf("notification failed: %v", err)

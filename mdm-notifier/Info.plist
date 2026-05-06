@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleIdentifier</key>
+    <string>com.dzarlax.mdm-notifier</string>
+
+    <key>CFBundleName</key>
+    <string>mdm-notifier</string>
+
+    <key>CFBundleExecutable</key>
+    <string>mdm-notifier</string>
+
+    <key>CFBundleVersion</key>
+    <string>1</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+
+    <!-- Run as background agent — no Dock icon -->
+    <key>LSUIElement</key>
+    <true/>
+
+    <!-- Required for UNUserNotificationCenter on macOS 14+ -->
+    <key>NSUserNotificationAlertStyle</key>
+    <string>alert</string>
+</dict>
+</plist>

@@ -30,13 +30,7 @@ Each card is expandable — click to see payload bundle IDs, raw policy data, UU
 
 ## Install
 
-### Prerequisites
-
-```bash
-brew install terminal-notifier   # clickable notifications
-```
-
-### Build
+### 1. Build and install the daemon
 
 ```bash
 git clone https://github.com/dzarlax/mdm-watch.git
@@ -45,7 +39,26 @@ go build -o mdm-watch .
 sudo cp mdm-watch /usr/local/bin/mdm-watch
 ```
 
-### Run as a LaunchAgent (auto-start on login)
+### 2. Build the notification helper
+
+`mdm-notifier` is a native Swift app that sends clickable notifications using `UNUserNotificationCenter`. It opens the web UI when you tap the notification.
+
+```bash
+cd mdm-notifier
+./build.sh
+```
+
+The script compiles the Swift source, creates an app bundle at `/usr/local/lib/mdm-notifier.app`, and signs it. It will use your **Developer ID Application** certificate if one is available in Keychain, otherwise it falls back to ad-hoc signing — in that case macOS may ask you to allow it in **System Settings → Privacy & Security** on first run.
+
+Run once to grant notification permission:
+
+```bash
+mdm-notifier -title "MDM Watch" -message "Test" -open "http://localhost:8765"
+```
+
+> **No Swift?** If you skip this step, notifications still work via `osascript` — they just won't be clickable.
+
+### 3. Run as a LaunchAgent (auto-start on login)
 
 ```bash
 cp com.dzarlax.mdm-watch.plist ~/Library/LaunchAgents/
@@ -87,6 +100,10 @@ Profiles are automatically flagged **⚠ CRITICAL** if their name, identifier, d
 
 The matched keywords are shown inside the expanded card.
 
-## Without terminal-notifier
+## Notification priority
 
-If `terminal-notifier` is not installed, notifications fall back to `osascript` — they appear but are not clickable. Install it with `brew install terminal-notifier` to get the click-to-open-UI behaviour.
+`mdm-watch` tries notification senders in this order:
+
+1. **`mdm-notifier`** — native Swift helper, clickable, opens browser on tap
+2. **`terminal-notifier`** — clickable if it works on your macOS version
+3. **`osascript`** — always works, not clickable
