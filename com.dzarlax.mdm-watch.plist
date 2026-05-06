@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.dzarlax.mdm-watch</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/mdm-watch</string>
+        <string>serve</string>
+    </array>
+
+    <!-- Start on login, stay running (serve mode is a long-running HTTP server) -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/dzarlax/.local/state/mdm-watch/stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/dzarlax/.local/state/mdm-watch/stderr.log</string>
+
+</dict>
+</plist>
